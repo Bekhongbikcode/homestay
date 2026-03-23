@@ -12,13 +12,47 @@
 
 <body>
     <div class="container">
-        <div class="hearts"></div>
+        <div class="floating-hearts" aria-hidden="true"></div>
         <h1 class="header_text">Tuỵt dờiiiiiiii :>>></h1>
-        <p class="subtitle">Chúng ta sẽ cùng nhau đi chơi ngày Valentine là lá la muahahahahaa! 🎉 💕</p>
+        <p class="subtitle">Chúng ta sẽ cùng nhau đi chơi homestay là lá la muahahahahaa! 🎉 💕</p>
         <div class="gif_container">
-            <img src="https://media.tenor.com/0we4VfL-cvoAAAAj/myaowl-love.gif">
+            <img src="https://media.tenor.com/0we4VfL-cvoAAAAj/myaowl-love.gif" alt="Em đồng ý, hình hoạt ảnh tình yêu">
         </div>
     </div>
+    <script>
+        (function () {
+            const floating = document.querySelector('.floating-hearts');
+            if (!floating) return;
+
+            const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (reduceMotion) return;
+
+            function createHeart() {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.textContent = '♥';
+
+                const size = 12 + Math.random() * 24; // px
+                const leftVw = Math.random() * 100; // vw
+                const driftPx = (Math.random() * 2 - 1) * 200; // px
+                const durationMs = 4200 + Math.random() * 4200; // ms
+                const baseOpacity = 0.35 + Math.random() * 0.45; // 0..1
+
+                heart.style.fontSize = size + 'px';
+                heart.style.left = leftVw + 'vw';
+                heart.style.top = '110vh';
+                heart.style.setProperty('--dx', driftPx + 'px');
+                heart.style.setProperty('--d', durationMs + 'ms');
+                heart.style.setProperty('--baseOpacity', baseOpacity.toString());
+
+                floating.appendChild(heart);
+                setTimeout(() => heart.remove(), durationMs + 900);
+            }
+
+            createHeart();
+            setInterval(createHeart, 450);
+        })();
+    </script>
 </body>
 
 </html>
